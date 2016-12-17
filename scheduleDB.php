@@ -32,7 +32,7 @@ $dbFlag=1;
 if ($dbFlag == 1){
 	
 	mysql_select_db("scheduledb",$conn);
-	
+		
 	$classTable = "CREATE TABLE class (
 	classNum int(3) NOT NULL PRIMARY KEY,
 	classBuilding int(3) NOT NULL,
@@ -72,6 +72,20 @@ if ($dbFlag == 1){
 
 	if(mysql_query($courseTable,$conn)){
 		echo "Courses table created\n";
+	}else{
+		echo "Error creating table: " . mysql_error($conn);
+	}
+	
+
+	$telephonesTable = "CREATE TABLE telephones(
+	id int(10) AUTO_INCREMENT PRIMARY KEY,
+	lecturerID int(11) NOT NULL, 
+	phoneNumber VARCHAR(11),
+	FOREIGN KEY (lecturerID) REFERENCES lecturers(id)
+	)";
+
+	if(mysql_query($telephonesTable,$conn)){
+		echo "telephones table created\n";
 	}else{
 		echo "Error creating table: " . mysql_error($conn);
 	}
