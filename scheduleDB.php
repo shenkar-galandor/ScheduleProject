@@ -145,4 +145,47 @@ if ($dbFlag == 1){
 		}	
 
 	}
+
+	//insert Courses into database
+	if($dbFlag==1){
+		$courseT =  "INSERT INTO courses (courseNum,courseName,semester,year,numOfHours)";
+		$courseVal = "VALUES(256,'Algebra','A','A',25),
+				             (380,'Computers and CPU','B','B',30),
+				             (102,'Graphics','S','A',27),
+				             (143,'Cars and Motors','B','A',40),
+				             (444,'Algorithms','S','B',40),
+				             (160,'Complicated Matrix','B','C',35),
+				             (280,'The Wonderful Internet','A','A',20),
+				             (197,'Advenced MicroTech','S','D',45)";
+            	if(mysql_query($courseT.$courseVal,$conn)){
+			echo "data insert into Courses\n";
+		}else{
+			echo "error insert data" .mysql_error($conn);
+		}
+	}
+	
+	//insert Phones into database
+
+	if($dbFlag==1){
+	  	$phonesT =  "INSERT INTO telephones (lecturerID,phoneNumber)";
+	  	$phonesVal = "VALUES(201590775,'0543551520'),
+	  				   (201590775,'086711741'),
+	  				   (302115648,'0506696321'),
+	  				   (302115648,'036614787'),
+	  				   (200569875,'0546678547'),
+	  				   (365221456,'0503362012'),
+	  				   (365221456,'0503362013'),
+	  				   (365221456,'0867445412'),
+	  				   (200006958,'036652111'),
+	  				   (369869633,'0509142856'),
+	  				   (223632544,'045512365'),
+	  				   (200589963,'0545582365'),
+	  				   (200589963,'023965874'),
+	  				   (112023654,'0504478965')";
+	  	if(mysql_query($phonesT.$phonesVal,$conn)){
+			echo "data insert into Phones\n";
+		}else{
+			echo "error insert data " .mysql_error($conn);
+		}
+	}
 ?>
