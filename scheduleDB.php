@@ -89,6 +89,23 @@ if ($dbFlag == 1){
 	}else{
 		echo "Error creating table: " . mysql_error($conn);
 	}
+
+	$scheduleTable = "CREATE TABLE scheduleTable(
+	lecturerID int (11) NOT NULL,
+	day VARCHAR(11) NOT NULL,
+	hour VARCHAR(11) NOT NULL,
+	classNum int(3) NOT NULL,
+	courseNum int(5) NOT NULL,
+	FOREIGN KEY (lecturerID) REFERENCES lecturers(id),
+	FOREIGN KEY (classNum) REFERENCES class(classNum),
+	FOREIGN KEY (courseNum) REFERENCES courses(courseNum)
+	)";
+
+	if(mysql_query($scheduleTable,$conn)){
+		echo "schedule main table created\n";
+	}else{
+		echo "Error creating table: " . mysql_error($conn);
+	}
 }
 
 ?>
