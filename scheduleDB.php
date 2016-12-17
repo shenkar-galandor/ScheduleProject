@@ -28,8 +28,8 @@ if ($sqlCheck == TRUE){
 	echo "database created\n";
 }
 
-$dbFlag=1;
-if ($dbFlag == 1){
+//build the database and the tables
+if ($dbFlag == 1){					
 	
 	mysql_select_db("scheduledb",$conn);
 		
@@ -108,4 +108,41 @@ if ($dbFlag == 1){
 	}
 }
 
+	//insert data to the tables
+	mysql_select_db("scheduledb",$conn);
+	$dbFlag=1;
+	
+	//Insert Lectures Data
+	if($dbFlag==1){
+		$lecturesT =  "INSERT INTO lecturers (id,firstName,lastName,birthDay,age,address)";
+		$lecturesVal = "VALUES(201590775,'Or', 'Adar','24/6/1989',27,'Kazerin 16 Asheklon'),
+					    (302115648,'Gal', 'Amitai','3/1/1992',25,'Hadekel 3 Rehovot'),
+					    (200569875,'Geula', 'Malichi','12/7/1960',57,'Hashoshan 15 Bat-Yam'),
+					    (365221456,'Yigal', 'Reuven','14/12/1954',68,'Hashaked 5 Rishon LeZion'),
+					    (200006958,'Shlomo', 'Six','15/3/1785',36,'Hashalom 3 Gedera'),
+					    (369869633,'Gili', 'Shimshi','5/5/1988',28,'Hanoked 6/15 Ashkelon'),
+					    (223632544,'Shimrit', 'Geuli','20/4/1980',39,'Shimshonim 3 Qiryat Ata'),
+					    (200589963,'Rivka', 'Tachober','24/7/1979',40,'Ayelet 5 Ramat Aviv'),
+					    (112023654,'Nahum', 'Mosinzon','4/7/1940',86,'Nachalat Hashalom 5 Bnei-Brak'),
+					    (366982200,'Omer', 'Dudiyahu','16/10/1986',31,'Refael Eitan 4 Lod')";
+
+		if(mysql_query($lecturesT.$lecturesVal,$conn)){
+			echo "data insert into lectures\n";
+		}else{
+			echo "error insert data" .mysql_error($conn);
+		}
+	}
+	
+	//insert Classes into database
+	if($dbFlag==1){
+		$classT =  "INSERT INTO class (classNum,classBuilding,classFloor)";
+		$classVal = "VALUES(100,1,2),(101,1,2),(247,2,3),(63,1,1),(70,3,5)";
+
+		if(mysql_query($classT.$classVal,$conn)){
+			echo "data insert into class\n";
+		}else{
+			echo "error insert data" .mysql_error($conn);
+		}	
+
+	}
 ?>
