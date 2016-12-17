@@ -18,7 +18,7 @@ echo "Connected successfully\n";
 
 //if database is not exists create it
 
-$sqlCheck = mysql_select_db("schedualdb",$conn);
+$sqlCheck = mysql_select_db("scheduledb",$conn);
 $dbFlag =0;
 if ($sqlCheck == TRUE){
 	echo "Database Exisits\n";
