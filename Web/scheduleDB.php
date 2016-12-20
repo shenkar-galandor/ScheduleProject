@@ -24,8 +24,8 @@ if ($dbFlag == 1){
 		
 	$classTable = "CREATE TABLE class (
 	classNum int(3) NOT NULL PRIMARY KEY,
-	classBuilding int(3) NOT NULL,
-	classFloor int(2) NOT NULL
+	classBuilding int(3),
+	classFloor int(2)
 	)";
 
 	if (mysql_query($classTable,$conn)){
@@ -69,6 +69,8 @@ if ($dbFlag == 1){
 	lecturerID int(11) NOT NULL, 
 	phoneNumber VARCHAR(11),
 	FOREIGN KEY (lecturerID) REFERENCES lecturers(id)
+	ON DELETE CASCADE
+    	ON UPDATE CASCADE
 	)";
 
 	if(mysql_query($telephonesTable,$conn)){
@@ -79,13 +81,19 @@ if ($dbFlag == 1){
 
 	$scheduleTable = "CREATE TABLE scheduleTable(
 	lecturerID int (11) NOT NULL,
-	day VARCHAR(11) NOT NULL,
-	hour VARCHAR(11) NOT NULL,
-	classNum int(3) NOT NULL,
-	courseNum int(5) NOT NULL,
-	FOREIGN KEY (lecturerID) REFERENCES lecturers(id),
-	FOREIGN KEY (classNum) REFERENCES class(classNum),
+	day VARCHAR(11) ,
+	hour VARCHAR(11),
+	classNum int(3),
+	courseNum int(5),
+	FOREIGN KEY (lecturerID) REFERENCES lecturers(id)
+	ON DELETE CASCADE 
+    	ON UPDATE CASCADE,
+	FOREIGN KEY (classNum) REFERENCES class(classNum)
+	ON DELETE CASCADE
+    	ON UPDATE CASCADE,
 	FOREIGN KEY (courseNum) REFERENCES courses(courseNum)
+	ON DELETE CASCADE
+    	ON UPDATE CASCADE
 	)";
 
 	if(mysql_query($scheduleTable,$conn)){
