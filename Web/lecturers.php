@@ -3,8 +3,7 @@ mysql_select_db("scheduledb",$conn);
 
 $result = mysql_query("SELECT * FROM `lecturers`");
 
-	echo "
-	<button><a href=?addLecture=true>הוספה</a></button><br>
+	echo "<a class=add href=?addLecture=true>הוספה</a>
 	<table>
 			  <tr>
 			    <th>תעודת זהות</th>

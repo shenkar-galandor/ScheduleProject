@@ -14,7 +14,7 @@ $sqlCheck = mysql_select_db("scheduledb",$conn);
 </head>
 <body>
 <div class="row fill">
-    <div class="col-md-2 sidebar">
+    <div class="col-xs-1 col-sm-2 sidebar">
         <h3>תפריט ניווט</h3>
         <nav>
 	        <ul>
@@ -25,7 +25,7 @@ $sqlCheck = mysql_select_db("scheduledb",$conn);
 	        </ul>
         </nav>
     </div>
-    <div class="col-md-10 main-content-area">
+    <div class="col-xs-11 col-sm-10 main-content-area">
         <h1>מערכת שעות - פאנל ניהול</h1>
         
         <section>
