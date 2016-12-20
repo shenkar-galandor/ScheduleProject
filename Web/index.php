@@ -1,3 +1,7 @@
+<?php
+include ("./connector.php");
+$sqlCheck = mysql_select_db("scheduledb",$conn);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,18 +18,10 @@
         <h3>תפריט ניווט</h3>
         <nav>
 	        <ul>
-	        	<li><a href="#">פאנל ניהול ראשי</a></li>
-	        	<li><a href="#">רשימת קורסים</a></li>
-	        	<li><a href="#">רשימת מרצים</a></li>
-	        	<li><a href="#">רשימת כיתות</a></li>
-	        	<li><a href="#">רשימת סטודנטים</a></li>
-	        	<li><a href="#">הצגת מערכת שעות</a></li>
-	        </ul>
-	        <ul>
-	        	<li><a href="#">הוספה \ מחיקה קורס</a></li>
-	        	<li><a href="#">הוספה \ מחיקה מרצה</a></li>
-	        	<li><a href="#">הוספה \ מחיקה כיתה</a></li>
-	        	<li><a href="#">הוספה \ מחיקה סטודנט</a></li>
+	        	<li><a href="index.php">פאנל ניהול ראשי</a></li>
+	        	<li><a href="index.php?page=courses">רשימת קורסים</a></li>
+	        	<li><a href="index.php?page=lecturers">רשימת מרצים</a></li>
+	        	<li><a href="index.php?page=classes">רשימת כיתות</a></li>
 	        </ul>
         </nav>
     </div>
@@ -37,17 +33,21 @@
         		if(isset($_GET['page'])) {
 	        		$page = $_GET['page'];
 	        		switch($page) {
-	        			case 'main' :
-	        				include('./main.php');
+	        			case 'lecturers' :
+	        				include('./lecturers.php');
 	        				break;
-	        			case 'about' :
-	        				include('./about.php');
+	        			case 'classes' :
+	        				include('./classes.php');
+	        				break;
+	        			case 'courses':
+	        				include('./courses.php');
 	        				break;
 	        		}
 	        	}
 	        	else
 	        		include('./homepage.php');
         	?>
+
         </section>
     </div>
 </div>

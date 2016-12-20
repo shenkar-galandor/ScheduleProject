@@ -1,23 +1,12 @@
+<?php
 //database server page
 //by Or Adar and Gal Amitai - All Rights Reserved
-
-<?php
+include("./connector.php");
 //connect to database
-$servername = "localhost";
-$username = "root";
-$password = "";
-//header('Content-Type: text/plain');
-// Create connection
-$conn =mysql_connect($servername, $username, $password);
-$i = 0;
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-echo "Connected successfully\n";
+header('Content-Type: text/plain');
+
 
 //if database is not exists create it
-/*
 $sqlCheck = mysql_select_db("scheduledb",$conn);
 $dbFlag =0;
 if ($sqlCheck == TRUE){
@@ -201,5 +190,5 @@ if ($dbFlag == 1){
 				}
 
 	}
-	*/
-	?>
+
+?>
