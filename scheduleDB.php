@@ -60,14 +60,12 @@ if ($dbFlag == 1){
 		echo "Error creating table: " . mysql_error($conn);
 	}
 	
-
 	$courseTable = "CREATE TABLE courses(
 	courseNum int(5) NOT NULL PRIMARY KEY,
 	courseName VARCHAR(30),
 	semester VARCHAR(1),
 	year VARCHAR(1),
 	numOfHours int (3)
-
 	)";
 
 	if(mysql_query($courseTable,$conn)){
@@ -106,14 +104,10 @@ if ($dbFlag == 1){
 	}else{
 		echo "Error creating table: " . mysql_error($conn);
 	}
-}
 
 	//insert data to the tables
-	mysql_select_db("scheduledb",$conn);
-	$dbFlag=1;
-	
 	//Insert Lectures Data
-	if($dbFlag==1){
+	
 		$lecturesT =  "INSERT INTO lecturers (id,firstName,lastName,birthDay,age,address)";
 		$lecturesVal = "VALUES(201590775,'Or', 'Adar','24/6/1989',27,'Kazerin 16 Asheklon'),
 					    (302115648,'Gal', 'Amitai','3/1/1992',25,'Hadekel 3 Rehovot'),
@@ -131,10 +125,9 @@ if ($dbFlag == 1){
 		}else{
 			echo "error insert data" .mysql_error($conn);
 		}
-	}
-	
+
 	//insert Classes into database
-	if($dbFlag==1){
+	
 		$classT =  "INSERT INTO class (classNum,classBuilding,classFloor)";
 		$classVal = "VALUES(100,1,2),(101,1,2),(247,2,3),(63,1,1),(70,3,5)";
 
@@ -144,10 +137,7 @@ if ($dbFlag == 1){
 			echo "error insert data" .mysql_error($conn);
 		}	
 
-	}
-
 	//insert Courses into database
-	if($dbFlag==1){
 		$courseT =  "INSERT INTO courses (courseNum,courseName,semester,year,numOfHours)";
 		$courseVal = "VALUES(256,'Algebra','A','A',25),
 				             (380,'Computers and CPU','B','B',30),
@@ -162,11 +152,8 @@ if ($dbFlag == 1){
 		}else{
 			echo "error insert data" .mysql_error($conn);
 		}
-	}
-	
-	//insert Phones into database
 
-	if($dbFlag==1){
+	//insert Phones into database
 	  	$phonesT =  "INSERT INTO telephones (lecturerID,phoneNumber)";
 	  	$phonesVal = "VALUES(201590775,'0543551520'),
 	  				   (201590775,'086711741'),
@@ -187,5 +174,32 @@ if ($dbFlag == 1){
 		}else{
 			echo "error insert data " .mysql_error($conn);
 		}
+	
+		$scheduleT = "INSERT INTO scheduletable(lecturerID,day,hour,classNum,courseNum)";
+		$scheduleVal = "VALUES (201590775,'Sunday','08:00',100,256),
+					      (302115648,'Sunday','08:00',101,380),
+					      (302115648,'Wednesday','10:00',247,380),
+					      (200569875,'Monday','09:00',63,102),
+					      (200569875,'Thursday','14:00',63,102),
+					      (365221456,'Sunday','09:00',63,143),
+					      (365221456,'Friday','09:00',63,143),
+					      (200006958,'Sunday','09:00',70,143),
+					      (200006958,'Tuesday','11:00',70,143),
+					      (369869633,'Monday','12:00',100,444),
+					      (223632544,'Wednesday','13:00',100,444),
+					      (200589963,'Friday','08:00',70,160),
+					      (200589963,'Friday','08:00',70,160),
+					      (112023654,'Friday','10:00',100,280),
+					      (112023654,'Sunday','09:00',100,280),
+					      (366982200,'Sunday','10:00',101,197),
+					      (366982200,'Monday','10:00',101,197)";
+
+			  if(mysql_query($scheduleT.$scheduleVal,$conn)){
+				echo "data insert into Schedule\n";
+				}else{
+				echo "error insert data " .mysql_error($conn);
+				}
+
 	}
+
 ?>
