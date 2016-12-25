@@ -128,6 +128,45 @@ else if(isset($_GET['aClassNum']) && isset($_GET['aClassBuilding']) && isset($_G
 		VALUES ('".$_GET['aClassNum']."', '".$_GET['aClassBuilding']."', '".$_GET['aClassFloor']."')",$conn);
 	echo "<p>הנתונים התווספו בהצלחה!</p>";
 }
+//Show for class the Lectures and the Course numbers
+else if(isset($_GET['classNum'])) {
+	$num = $_GET['classNum'];
+	$result = mysql_query("SELECT `lecturerID`,`courseNum` FROM `scheduletable` WHERE `classNum`=".$num." GROUP BY `lecturerID`,`courseNum`");
+	echo "
+	<table>
+			  <tr>
+			    <th>ת.ז מרצה</th>
+			    <th>מספר קורס</th>
+			  </tr>";
+	while($row = mysql_fetch_array($result)){
+		echo "<tr>
+				<td>" .$row['lecturerID']. "</td><td>" .$row['courseNum'] .
+				"</td></tr>";
+	} 
+
+
+}
+//Show for class the Lectures and the Course numbers
+else if(isset($_GET['lecturesID'])) {
+	$num = $_GET['lecturesID'];
+	$result = mysql_query("SELECT `hour`,`classNum`,`courseNum` FROM `scheduletable` WHERE `lecturerID`=".$num." GROUP BY `hour`,`classNum`,`courseNum`");
+	echo "
+	<table>
+			  <tr>
+			    <th>שעת לימוד</th>
+			    <th>מספר כיתה</th>
+			    <th>מספר קורס</th>
+			  </tr>";
+	while($row = mysql_fetch_array($result)){
+		echo "<tr>
+				<td>" .$row['hour']. "</td>
+				<td>" .$row['classNum']. "</td>
+				<td>" .$row['courseNum'] .
+				"</td></tr>";
+	} 
+
+
+}
 else {
 	echo "<p>ברוך הבא למערכת ניהול שנת לימודים!</p>";
 }

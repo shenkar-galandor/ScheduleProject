@@ -22,6 +22,10 @@ $sqlCheck = mysql_select_db("scheduledb",$conn);
 	        	<li><a href="index.php?page=courses">רשימת קורסים</a></li>
 	        	<li><a href="index.php?page=lecturers">רשימת מרצים</a></li>
 	        	<li><a href="index.php?page=classes">רשימת כיתות</a></li>
+	        	<li><a href="index.php?page=schedule">הצגת מערכת שעות</a></li>
+	        	<li><a href="index.php?page=query1">הצג נתוני כיתה</a></li>
+	        	<li><a href="index.php?page=query2">הצג נתוני מרצים</a></li>
+	        	<li><a href="index.php?page=query3">הצגת פרטים לפי זמן</a></li>
 	        </ul>
         </nav>
     </div>
@@ -41,6 +45,18 @@ $sqlCheck = mysql_select_db("scheduledb",$conn);
 	        				break;
 	        			case 'courses':
 	        				include('./courses.php');
+	        				break;
+	        			case 'schedule':
+	        				include('./schedule.php');
+	        				break;
+	        			case 'query1':
+	        				include('./query1.php');
+	        				break;
+	        			case 'query2':
+	        				include('./query2.php');
+	        				break;
+	        			case 'query3':
+	        				include('./query3.php');
 	        				break;
 	        		}
 	        	}
