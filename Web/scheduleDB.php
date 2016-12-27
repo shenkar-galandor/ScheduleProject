@@ -82,7 +82,7 @@ if ($dbFlag == 1){
 	$scheduleTable = "CREATE TABLE scheduleTable(
 	lecturerID int (11) NOT NULL,
 	day VARCHAR(11) ,
-	hour VARCHAR(11),
+	hour TIME,
 	classNum int(3),
 	courseNum int(5),
 	FOREIGN KEY (lecturerID) REFERENCES lecturers(id)
@@ -173,23 +173,23 @@ if ($dbFlag == 1){
 		}
 	
 		$scheduleT = "INSERT INTO scheduletable(lecturerID,day,hour,classNum,courseNum)";
-		$scheduleVal = "VALUES (201590775,'Sunday','08:00',100,256),
-					      (302115648,'Sunday','08:00',101,380),
-					      (302115648,'Wednesday','10:00',247,380),
-					      (200569875,'Monday','09:00',63,102),
-					      (200569875,'Thursday','14:00',63,102),
-					      (365221456,'Sunday','09:00',63,143),
-					      (365221456,'Friday','09:00',63,143),
-					      (200006958,'Sunday','09:00',70,143),
-					      (200006958,'Tuesday','11:00',70,143),
-					      (369869633,'Monday','12:00',100,444),
-					      (223632544,'Wednesday','13:00',100,444),
-					      (200589963,'Friday','08:00',70,160),
-					      (200589963,'Friday','08:00',70,160),
-					      (112023654,'Friday','10:00',100,280),
-					      (112023654,'Sunday','09:00',100,280),
-					      (366982200,'Sunday','10:00',101,197),
-					      (366982200,'Monday','10:00',101,197)";
+		$scheduleVal = "VALUES (201590775,'Sunday','08:00:00',100,256),
+					      (302115648,'Sunday','08:00:00',101,380),
+					      (302115648,'Wednesday','10:00:00',247,380),
+					      (200569875,'Monday','09:00:00',63,102),
+					      (200569875,'Thursday','14:00:00',63,102),
+					      (365221456,'Sunday','09:00:00',63,143),
+					      (365221456,'Friday','09:00:00',63,143),
+					      (200006958,'Sunday','09:00:00',70,143),
+					      (200006958,'Tuesday','11:00:00',70,143),
+					      (369869633,'Monday','12:00:00',100,444),
+					      (223632544,'Wednesday','13:00:00',100,444),
+					      (200589963,'Friday','08:00:00',70,160),
+					      (200589963,'Friday','08:00:00',70,160),
+					      (112023654,'Friday','10:00:00',100,280),
+					      (112023654,'Sunday','09:00:00',100,280),
+					      (366982200,'Sunday','10:00:00',101,197),
+					      (366982200,'Monday','10:00:00',101,197)";
 
 			  if(mysql_query($scheduleT.$scheduleVal,$conn)){
 				echo "data insert into Schedule\n";

@@ -1,4 +1,28 @@
 <?php
+
+function getDay($num){
+    	if ($num==0) return "Sunday";
+    	else if ($num==1) return "Monday";
+    	else if ($num==2) return "Tuesday";
+    	else if ($num==3) return "Wednesday";
+    	else if ($num==4) return "Thursday";
+    	else if ($num==5) return "Friday";
+ };
+function getNum($day){
+    	if ($day=='Sunday') return 0;
+    	else if ($day=='Monday') return 1;
+    	else if ($day=='Tuesday') return 2;
+    	else if ($day=='Wednesday') return 3;
+    	else if ($day=='Thursday') return 4;
+    	else if ($day=='Friday') return 5;
+};
+
+function addHour($cTime){
+	$timestamp = strtotime($cTime) + 60*60;
+	$time = date('H:i:s', $timestamp);
+	return $time;
+}
+
 // START Lecturers Functions
 // Delete Lecture
 if(isset($_GET['deleteLecture'])) {
@@ -167,8 +191,51 @@ else if(isset($_GET['lecturesID'])) {
 
 
 }
+else if(isset($_GET['fromDay']) && isset($_GET['fromHour']) &&
+	isset($_GET['toDay']) && isset($_GET['toHour'])){
+	$fromDay = $_GET['fromDay'];
+	$toDay = $_GET['toDay'];
+	$fromHour = $_GET['fromHour'];
+	$toHour = $_GET['toHour'];
+	
+	if ((getNum($fromDay))>=(getNum($toDay))){
+		echo "<p>הזנת נתונים שגוייה</p>";
+	}else {
+		$firstDay = "(`day`='".$fromDay."') AND (";
+		for($i = $fromHour ; $i != "17:00:00" ; $i = addHour($i))
+			$firstDay .= "`hour` = '".$i."' OR ";
+		$firstDay.="`hour`='17:00:00') OR ";
+
+		for($i = (getNum($fromDay)+1); $i < getNum($toDay); $i++)
+			 $firstDay.= "(`day` = '". getDay($i)."') OR ";
+			
+		$firstDay.="((`day`='".$toDay."') AND (";
+		for($i = '08:00:00' ; $i != $toHour ; $i = addHour($i))
+			$firstDay.= "`hour` = '".$i."' OR ";
+		$firstDay.="`hour`='".$toHour."'))";
+		$result = mysql_query("SELECT `scheduletable`.`lecturerID` ,`lecturers`.`firstName`,`lecturers`.`lastName` FROM `scheduletable` LEFT JOIN `lecturers` on `scheduletable`.`lecturerID`=`lecturers`.`id` WHERE ".$firstDay." GROUP BY `scheduletable`.`lecturerID`");
+
+		echo "
+			<table>
+			  <tr>
+			    <th>תעודת זהות</th>
+			    <th>שם פרטי</th>
+			    <th>שם משפחה</th>
+			  </tr>";
+		while($row = mysql_fetch_array($result)){
+		echo "<tr>
+				<td>" .$row['lecturerID']. "</td>
+				<td>" .$row['firstName']. "</td>
+				<td>" .$row['lastName']. "</td>
+				</tr>";
+								} 
+
+	}
+}
 else {
 	echo "<p>ברוך הבא למערכת ניהול שנת לימודים!</p>";
 }
+
+
 // END Courses Functions
 ?>
