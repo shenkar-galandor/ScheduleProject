@@ -139,7 +139,7 @@ else if(isset($_GET['classNum']) &&	isset($_GET['classBuilding']) && isset($_GET
 	mysql_query("UPDATE `class` SET `classNum` = '".$_GET['classNum']."', `classBuilding` = '".$_GET['classBuilding']."', `classFloor` = '".$_GET['classFloor']."' WHERE `class`.`classNum` =".$_GET['cId'],$conn);
 		echo "<p>הנתונים עודכנו בהצלחה!</p>";
 }
-// ADD Class
+// ADD Class using Transaction
 else if(isset($_GET['addClass'])){
 	echo "<form method=get>
 			מספר כיתה<br><input type=text name=aClassNum> 
@@ -148,9 +148,18 @@ else if(isset($_GET['addClass'])){
 			<input class=add2 type=submit value='הוספת נתונים'></form>";
 }
 else if(isset($_GET['aClassNum']) && isset($_GET['aClassBuilding']) && isset($_GET['aClassFloor'])) {
-	mysql_query("INSERT INTO `class` (`classNum`, `classBuilding`, `classFloor`) 
-		VALUES ('".$_GET['aClassNum']."', '".$_GET['aClassBuilding']."', '".$_GET['aClassFloor']."')",$conn);
-	echo "<p>הנתונים התווספו בהצלחה!</p>";
+	$mysqli = new mysqli('localhost','root','','scheduledb');
+	$mysqli->autocommit(FALSE);
+	
+	$mysqli->query("INSERT INTO class (classNum,classBuilding,classFloor)  VALUES ('".$_GET['aClassNum']."','".$_GET['aClassBuilding']."','".$_GET['aClassFloor']."')");
+
+	if (($_GET['aClassNum'] != NULL) && ($_GET['aClassBuilding']!=NULL) && ($_GET['aClassFloor']!=NULL)){
+		echo "<p>הנתונים התווספו בהצלחה!</p>";
+		$mysqli->commit();
+	}else{
+		echo "<p>הזנת נתונים שגוייה!</p>";
+		$mysqli->rollback();
+	}
 }
 //Show for class the Lectures and the Course numbers
 else if(isset($_GET['classNum'])) {
