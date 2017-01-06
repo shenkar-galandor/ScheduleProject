@@ -48,6 +48,34 @@ if ($dbFlag == 1){
 	}else{
 		echo "Error creating table: " . mysql_error($conn);
 	}
+
+	$lecturesBackup = "CREATE TABLE lecturesBackup(
+	id int(11) NOT NULL PRIMARY KEY,
+	firstName VARCHAR(30),
+	lastName VARCHAR(30),
+	birthDay VARCHAR(11),
+	age int(3),
+	address VARCHAR(50)
+	)";
+
+	if(mysql_query($lecturesBackup,$conn)){
+		echo "Lecturer Backup table created\n";
+	}else{
+		echo "Error creating table: " . mysql_error($conn);
+	}
+
+	$trigger = "CREATE TRIGGER testTrigger 
+	BEFORE INSERT ON `lecturers` 
+	FOR EACH ROW 
+	BEGIN 
+  	INSERT INTO `lecturesbackup` VALUES (NEW.id,NEW.firstName,NEW.lastName,NEW.birthDay,NEW.age,NEW.address);
+	END;";
+
+	if(mysql_query($trigger,$conn)){
+		echo "Trigger is On!\n";
+	}else{
+		echo "Error creating trigger: " . mysql_error($conn);
+	}
 	
 	$courseTable = "CREATE TABLE courses(
 	courseNum int(5) NOT NULL PRIMARY KEY,
@@ -78,6 +106,7 @@ if ($dbFlag == 1){
 	}else{
 		echo "Error creating table: " . mysql_error($conn);
 	}
+
 
 	$scheduleTable = "CREATE TABLE scheduleTable(
 	lecturerID int (11) NOT NULL,
