@@ -64,7 +64,7 @@ if ($dbFlag == 1){
 		echo "Error creating table: " . mysql_error($conn);
 	}
 
-	$trigger = "CREATE TRIGGER lecBeckup 
+	$trigger = "CREATE TRIGGER lecBackup 
 	BEFORE INSERT ON `lecturers` 
 	FOR EACH ROW 
 	BEGIN 
