@@ -164,7 +164,7 @@ else if(isset($_GET['aClassNum']) && isset($_GET['aClassBuilding']) && isset($_G
 //Show for class the Lectures and the Course numbers
 else if(isset($_GET['classNum'])) {
 	$num = $_GET['classNum'];
-	$result = mysql_query("SELECT `lecturerID`,`courseNum` FROM `scheduletable` WHERE `classNum`=".$num." GROUP BY `lecturerID`,`courseNum`");
+	$result = mysql_query("SELECT `lecturerID`, `courseNum` FROM `scheduletable` WHERE `classNum` IN (SELECT `classNum` FROM `class` WHERE `classNum`='".$num."')");
 	echo "
 	<table>
 			  <tr>
