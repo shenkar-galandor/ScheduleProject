@@ -1,6 +1,6 @@
 <?php
 mysql_select_db("scheduledb",$conn);
-$lectures = mysql_query("SELECT `id` FROM `lecturers`");
+//$lectures = mysql_query("SELECT `id` FROM `lecturers`");
 echo "<p>בחר שעות וימים</p><br>
 	<form method='get'>
 	<p>מיום</p>

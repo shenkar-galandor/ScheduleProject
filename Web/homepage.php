@@ -151,6 +151,7 @@ else if(isset($_GET['addClass'])){
 			<br><br>מספר קומה<br> <input type=text name=aClassFloor><br><br>
 			<input class=add2 type=submit value='הוספת נתונים'></form>";
 }
+//using transaction for validation
 else if(isset($_GET['aClassNum']) && isset($_GET['aClassBuilding']) && isset($_GET['aClassFloor'])) {
 	$mysqli = new mysqli('localhost','root','','scheduledb');
 	$mysqli->autocommit(FALSE);
@@ -164,6 +165,7 @@ else if(isset($_GET['aClassNum']) && isset($_GET['aClassBuilding']) && isset($_G
 		echo "<p>הזנת נתונים שגוייה!</p>";
 		$mysqli->rollback();
 	}
+	$mysqli->autocommit(TRUE);
 }
 //Show for class the Lectures and the Course numbers
 else if(isset($_GET['classNum'])) {
