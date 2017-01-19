@@ -97,7 +97,7 @@ else if(isset($_GET['courseNum']) &&	isset($_GET['courseName']) && isset($_GET['
 	mysql_query("UPDATE `courses` SET `courseNum` = '".$_GET['courseNum']."', `courseName` = '".$_GET['courseName']."', `semester` = '".$_GET['semester']."', `year` = '".$_GET['year']."', `numOfHours` = '".$_GET['numOfHours']."' WHERE `courses`.`courseNum` = ". $_GET['mId'],$conn);
 		echo "<p>הנתונים עודכנו בהצלחה!</p>";
 }
-// ADD Course
+// ADD Course with prepared statment
 else if(isset($_GET['addCourse'])){
 	echo "<form method=get>
 			מספר קורס<br><input type=text name=aCourseNum> 
@@ -108,9 +108,13 @@ else if(isset($_GET['addCourse'])){
 			<input class=add2 type=submit value='הוספת נתונים'></form>";
 }
 else if(isset($_GET['aCourseNum']) && isset($_GET['aCourseName']) && isset($_GET['aSemester']) && isset($_GET['aYear']) && isset($_GET['aNumOfHours'])) {
-	mysql_query("INSERT INTO `courses` (`courseNum`, `courseName`, `semester`, `year`, `numOfHours`)
-		VALUES ('".$_GET['aCourseNum']."', '".$_GET['aCourseName']."', '".$_GET['aSemester']."', '".$_GET['aYear']."', '".$_GET['aNumOfHours']."')",$conn);
-	echo "<p>הנתונים התווספו בהצלחה!</p>";
+	$conn1 = new mysqli('localhost','root','','scheduledb');
+	$stmt=$conn1->prepare("INSERT INTO `courses` (`courseNum`,`courseName`,`semester`,`year`,`numOfHours`) VALUES (?,?,?,?,?)");
+	$stmt->bind_param("isssi",$_GET['aCourseNum'],$_GET['aCourseName'],$_GET['aSemester'],$_GET['aYear'],$_GET['aNumOfHours']);
+	$stmt->execute();
+	echo "<p>הנתונים עודכנו בהצלחה!</p>";
+	$stmt->close();
+
 }
 // END Courses Functions
 
